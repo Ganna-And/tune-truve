@@ -6,12 +6,11 @@ import { Price, ProductWithPrice } from '@/types';
 import Button from './Button';
 import { postData } from '@/helpers/getUrl';
 import { useUser } from '@/hooks/useUser';
-import { error } from 'console';
 import toast from 'react-hot-toast';
 import getStripe from '@/libs/stripeClient';
 import useSubscribeModal from '@/hooks/useSubscribeModal';
 
-type SubscribeModalProps = {
+interface SubscribeModalProps {
     products: ProductWithPrice[]
 };
 
@@ -44,7 +43,7 @@ return toast.error('Must be logged in');
      } 
         try {
             const { sessionId } = await postData({
-            url:'api/create-checkout-session',
+            url:'/api/create-checkout-session',
             data:{ price }
         });
         
@@ -77,7 +76,7 @@ if (products.length) {
           if (!product.prices?.length) {
             return (
               <div key={product.id}>
-               
+               No prices available
               </div>
             );
           }
