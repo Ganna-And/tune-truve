@@ -27,7 +27,7 @@ export const Input= forwardRef<HTMLInputElement, InputType>(({
     placeholder:text-sm
     placeholder:font-semibold
     px-4
-    h-[3rem]
+    h-[1.5rem]
     file:opacity-70
     file:border-0
     file:text-sm

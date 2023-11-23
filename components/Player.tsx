@@ -5,8 +5,8 @@ import useLoadSong from '@/hooks/useLoadSong';
 import usePlayer from '@/hooks/usePlayer';
 import React from 'react';
 import PlayerContent from './PlayerContent';
+import { useUser } from '@/hooks/useUser';
 
-useLoadSong
 
 
 const Player= () => {
@@ -14,8 +14,9 @@ const Player= () => {
     const player = usePlayer();
     const {song} = useGetSongsById(player.activeId);
     const songUrl = useLoadSong(song!)
+    const {user} = useUser()
 
-    if(!player.activeId || !songUrl || !song){
+    if(!player.activeId || !songUrl || !song || !user){
          return null
     }
     

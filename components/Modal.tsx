@@ -46,7 +46,7 @@ const Modal:React.FC<ModalProps> = ({title,
            md:max-w-[450px]
            h-full
            md:h-fit
-           md:max-h-[85vh]
+           md:max-h-[95vh]
            bg-neutral-800
            focus:outline-none
            rounded-lg
