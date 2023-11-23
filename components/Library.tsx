@@ -1,17 +1,42 @@
+"use client"
 import React from 'react';
 import { PiPlaylistLight } from "react-icons/pi";
 import { CiSquarePlus } from "react-icons/ci";
+import { useUser } from '@/hooks/useUser';
+import useAuthModal from '@/hooks/useAuthModal';
+import useUploadModal from '@/hooks/useUploadModal';
+import { Song } from '@/types';
+import MediaItem from './MediaItem';
+import useOnPlay from '@/hooks/useOnPlay';
+import useSubscribeModal from '@/hooks/useSubscribeModal';
 
 
-type LibraryProps = {
-    
+interface LibraryProps {
+    songs:Song[]
 };
 
-const Library:React.FC<LibraryProps> = () => {
+const Library:React.FC<LibraryProps> = ({songs}) => {
 
-    const addSong=()=>{
+  const{ user, subscription} = useUser();
+  const subscribeModal = useSubscribeModal()
+  const authModal = useAuthModal();
+  const uploadModal = useUploadModal();
+ 
+  const onPlay = useOnPlay(songs)
+
+
+    const addSong=({})=>{
 //open upload modal
-    }
+if(!user){
+ return authModal.onOpen();
+} 
+if(!subscription){
+ return subscribeModal.onOpen()
+}
+return  uploadModal.onOpen()
+   }
+
+
     
     return (<div className='flex flex-col'>
         <div className="flex justify-between navhover">
@@ -24,7 +49,11 @@ const Library:React.FC<LibraryProps> = () => {
               onClick={addSong}/>
            </div>
       
-        <h2 className='navhover mt-2 pl-2'>List of songs</h2> 
+        <div className='mt-2'>
+          {songs.map((item)=>(
+ <MediaItem key={item.id} song={item} onClick={(id)=>onPlay(id)} />
+          ))}
+         </div> 
          </div>
   )
 }

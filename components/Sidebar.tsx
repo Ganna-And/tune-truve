@@ -6,19 +6,24 @@ import { IoHomeOutline, IoSearchOutline } from "react-icons/io5";
 import Box from './Box';
 import SidebarItem from './SidebarItem';
 import Library from './Library';
+import { Song } from '@/types';
+import { twMerge } from 'tailwind-merge';
+import usePlayer from '@/hooks/usePlayer';
 
 
 
 
 
 interface SidebarProps {
-    children: React.ReactNode
+    children: React.ReactNode,
+    songs:Song[]
 };
 
-const Sidebar:React.FC<SidebarProps> = ({children}) => {
+const Sidebar:React.FC<SidebarProps> = ({children, songs}) => {
 
 
     const pathName = usePathname();
+    const player = usePlayer();
 
     const routes = useMemo(()=>[{
       icon: IoHomeOutline,
@@ -35,13 +40,13 @@ const Sidebar:React.FC<SidebarProps> = ({children}) => {
     }],[pathName])
 
     return (
-    <div className='h-full'>
-        <div className="flex h-full">
-        <main className="h-full w-[100%] bg-neutral-900"> {children}</main>
+    <div className={twMerge(`flex h-full`,player.activeId&& 'h-[calc(100%-80px)]')}>
+        <main className="flex-1 h-full overflow-y-auto bg-neutral-900"> {children}</main>
         <div className="
         hidden
         md:flex
         flex-col
+        h-full
         w-[300px]
         ">
          <Box>{routes.map(item=>(
@@ -49,9 +54,11 @@ const Sidebar:React.FC<SidebarProps> = ({children}) => {
             key={item.label}
              {...item} />
          ))} </Box>
-         <Box className='h-full overflow-y-auto'><Library /></Box>
+         <Box className='h-full overflow-y-auto'>
+          <Library songs={songs} />
+          </Box>
         </div>
        </div>
-        </div>)
+       )
 }
 export default Sidebar;

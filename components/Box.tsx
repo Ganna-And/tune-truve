@@ -15,6 +15,7 @@ const Box:React.FC<BoxProps> = ({children,className}) => {
     border-white
     border-[1px]
     font-semibold
+    w-[300px]
     uppercase
     flex
     flex-col

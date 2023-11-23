@@ -1,30 +1,48 @@
-"use client"
 
-
-
+import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header"
 import LikedSongs from "@/components/LikedSongs";
+import PageContent from "@/app/(site)/components/PageContent";
 
 
-export default function Home() {
 
+export const revalidate = 0;
 
-  
+export default async function Home() {
+
+const songs = await getSongs();
     return (
+      <div
+      className="
+        bg-neutral-900 
+        rounded-lg 
+        h-full 
+        w-full 
+        overflow-hidden 
+        overflow-y-auto
+      "
+    >
       <Header>
-        <div className=" flex flex-col px-8 sm:flex-row  mt-4 align-center gap-x-4 justify-center">
-          <h1 className="uppercase my-2 text-2xl md:text-4xl">
+        <div className=" flex flex-col px-8 
+        lg:flex-row 
+         mt-4 
+         align-center 
+         gap-x-4 
+         justify-center">
+          <h1 className="uppercase
+           my-2 text-4xl md:text-xl">
           Back to the Beats!
           </h1>
         <LikedSongs
         title="Liked songs"
         image='/assets/liked.png'
-        href="/liked"/>
+        href="liked"/>
         </div>
-        <h1>Newest songs</h1>
-        <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
-            <p>list of songs</p>
+        <h1 className="px-4">Newest songs</h1> 
+      </Header> 
+      <div className="px-4 py-2 flex-1">
+          <PageContent songs={songs}/>
         </div>
-      </Header>
+      </div>
     )
   }

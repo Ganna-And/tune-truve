@@ -1,11 +1,15 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import AuthModal from '@/components/AuthModal';
+import UploadModal from '@/components/UploadModal';
+import SubscribeModal from '@/components/SubscribeModal';
+import { ProductWithPrice } from '@/types';
 
-import Modal from '@/components/Modal';
+interface ModalProviderProps{
+    products :ProductWithPrice[]
+}
 
-
-
-const ModalProvider= () => {
+const ModalProvider:React.FC<ModalProviderProps>= ({products}) => {
 
     const [isMounted, setIsMounted] = useState(false);
 
@@ -19,9 +23,10 @@ if(!isMounted){
 
     return (
         <>
-        <Modal title='test modal' description='Test description'
-        isOpen
-        onChange={()=>{}}>Test Child</Modal></>
+        <AuthModal/>
+        <UploadModal/>
+        <SubscribeModal  products={products}/>
+        </>
     )
 }
 export default ModalProvider;

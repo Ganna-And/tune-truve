@@ -16,7 +16,7 @@ type LikedSongsProps = {
 const LikedSongs:React.FC<LikedSongsProps> = ({href,image,title}) => {
     const router = useRouter()
 
-    const handlePlay=()=>{
+    const onClick= ()=>{
         //check if logged in
         router.push(href)
     }
@@ -25,13 +25,15 @@ const LikedSongs:React.FC<LikedSongsProps> = ({href,image,title}) => {
         <div>
         <button className="flex w-[16rem] group orrangehover
           bg-orange-100 h-[3rem] px-2 relative rounded-lg items-center
-         uppercase gap-x-2">
+         uppercase gap-x-2"
+         onClick={onClick}
+         >
     
        <Image src= {image}  alt='liked picture' width={24} height={24}/>
        
         <p className="pt-1 font-regular text-orange-900">{title}</p>
         <div className='opacity-0 group-hover:opacity-100 absolute right-5'>
-            <IoPlayOutline size={32} onClick={handlePlay}
+            <IoPlayOutline size={32} onClick={()=>{}}
              className='text-orange-900 border-[1px] 
              rounded-full bg-orange-100
                border-orange-900 p-2 '/>

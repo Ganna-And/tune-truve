@@ -3,6 +3,7 @@ import React from 'react';
 import { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge';
 
+
 interface SidebarItemProps {
     icon: IconType,
     label: string,
@@ -14,7 +15,7 @@ const SidebarItem:React.FC<SidebarItemProps> = ({
     icon: Icon,
     label,active,href
 }) => {
-    
+   
     return (
     <Link href={href} className={twMerge(`
     flex
